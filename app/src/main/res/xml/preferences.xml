@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- ─── MQTT Broker ──────────────────────────────────────────────── -->
+    <PreferenceCategory android:title="MQTT Broker">
+
+        <EditTextPreference
+            android:key="mqtt_host"
+            android:title="Broker Host"
+            android:summary="e.g. broker.hivemq.com"
+            android:defaultValue="broker.hivemq.com"
+            android:inputType="textUri"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:key="mqtt_port"
+            android:title="Port"
+            android:summary="Default: 1883 (TLS: 8883)"
+            android:defaultValue="1883"
+            android:inputType="number"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:key="mqtt_topic"
+            android:title="Topic"
+            android:defaultValue="tracker/devices"
+            android:inputType="text"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:key="mqtt_username"
+            android:title="Username"
+            android:summary="Leave blank if not required"
+            android:defaultValue=""
+            android:inputType="text"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:key="mqtt_password"
+            android:title="Password"
+            android:summary="Leave blank if not required"
+            android:defaultValue=""
+            android:inputType="textPassword"/>
+
+        <SwitchPreferenceCompat
+            android:key="mqtt_tls"
+            android:title="Use TLS/SSL"
+            android:summary="Enable for encrypted connections (port 8883)"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <!-- ─── Publish Mode ─────────────────────────────────────────────── -->
+    <PreferenceCategory android:title="Publish Mode">
+
+        <SwitchPreferenceCompat
+            android:key="interval_enabled"
+            android:title="Interval Mode"
+            android:summary="Publish on a fixed time interval"
+            android:defaultValue="true"/>
+
+        <EditTextPreference
+            android:key="publish_interval_secs"
+            android:title="Publish Interval (seconds)"
+            android:defaultValue="30"
+            android:inputType="number"
+            android:dependency="interval_enabled"
+            app:useSimpleSummaryProvider="true"/>
+
+        <SwitchPreferenceCompat
+            android:key="movement_enabled"
+            android:title="Movement Mode"
+            android:summary="Publish when significant movement is detected"
+            android:defaultValue="true"/>
+
+        <EditTextPreference
+            android:key="movement_threshold_metres"
+            android:title="Movement Threshold (metres)"
+            android:defaultValue="50"
+            android:inputType="numberDecimal"
+            android:dependency="movement_enabled"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <!-- ─── Tracking ─────────────────────────────────────────────────── -->
+    <PreferenceCategory android:title="Tracking">
+
+        <SwitchPreferenceCompat
+            android:key="start_on_boot"
+            android:title="Start on Boot"
+            android:summary="Automatically start tracking after device restarts"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
